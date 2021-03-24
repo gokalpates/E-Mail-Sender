@@ -1,0 +1,4 @@
+// Delete this comment and just write target receivers per row.
+a@examplemail.com
+b@examplemail.com
+c@examplemail.com
