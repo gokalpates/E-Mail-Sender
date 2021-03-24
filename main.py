@@ -20,18 +20,18 @@ message = MIMEMultipart("alternative")
 message["Subject"] = subject
 message["From"] = '<' + account + '>'
 
-f_text = open("plaintext.txt", "r")
+f_text = open("plaintext.txt", "r", encoding="utf-8")
 text = f_text.read()
-part1 = MIMEText(text, "plain")
+part1 = MIMEText(text, "plain", 'UTF-8')
 
 if text != "null":
     message.attach(part1)
 else:
     print("Notification: Plaintext file did not attached to mail message because of it has specified with null.")
 
-f_html = open("html.html", "r")
+f_html = open("html.html", "r", encoding="utf-8")
 html = f_html.read()
-part2 = MIMEText(html, "html")
+part2 = MIMEText(html, "html", 'UTF-8')
 
 if html != "null":
     message.attach(part2)
@@ -68,6 +68,7 @@ context = ssl.create_default_context()
 with smtplib.SMTP_SSL("smtp.gmail.com", port, context=context) as server:
     server.login(account, password)
     while f_receivers.readable():
+        receiver = ""
         receiver = f_receivers.readline()
         message["To"] = '<' + receiver + '>'
         server.sendmail(account, receiver, message.as_string())
